@@ -2,18 +2,34 @@
 
 namespace cz\jasnapaka\kolemplzne;
 
+/**
+ * Třída ParkingReader čte informace o parkování kol ze vstupního JSONu.
+ *
+ * @package cz\jasnapaka\kolemplzne
+ * @author Pavel Cvrček
+ */
 class ParkingReader
 {
 	private $jsonUrl;
 
+	/**
+	 * ParkingReader constructor.
+	 * @param $jsonUrl cesta ke vstupnímu JSONu.
+	 */
 	public function __construct($jsonUrl) {
 		$this->jsonUrl = $jsonUrl;
 	}
 
+	/**
+	 * Vrací data pro zobrazení základní heatmapy.
+	 *
+	 * @return string|boolean Vrací data pro heatmapu či false,
+	 * pokud se je nepodaří načíst.
+	 */
 	public function getHeatmapData() {
 		$result = file_get_contents($this->jsonUrl);
 		if (!$result) {
-			return "";
+			return false;
 		}
 
 		$obj = json_decode($result);
