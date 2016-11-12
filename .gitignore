@@ -1,4 +1,4 @@
 .idea
-data
+/data
 config.php
 phpunit.phar
