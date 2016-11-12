@@ -1,4 +1,6 @@
 # Heatmapa parkování kol KolemPlzne
+[![Stav buidu](https://travis-ci.org/JasnaPaka/kolemplzne-heatmap.svg?branch=master)](https://travis-ci.org/JasnaPaka/kolemplzne-heatmap)
+[![Codecov](https://img.shields.io/codecov/c/github/JasnaPaka/kolemplzne-heatmap.svg?maxAge=2592000)](https://codecov.io/gh/JasnaPaka/kolemplzne-heatmap)
 
 Stránka s heatmapou zobrazující parkování kol bikesharingu [KolemPlzne](https://www.kolemplzne.cz/).
 
