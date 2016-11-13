@@ -15,15 +15,47 @@ abbr {
     z-index: 1;
 }
 
-#options {
+h1 {
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+
+p {
+    margin: 8px 0 8px 0;
+}
+
+#p-options {
+    margin: 0;
+    padding: 0;
+}
+
+#buttons {
+    height: 24px;
     position: absolute;
-    top: 10px;
+    text-align: center;
+    top: 6px;
+    right: 10px;
+    z-index: 5;
+    position: absolute;
+    background-color: silver;
+    width: 24px;
+    color: white;
+    padding-top: 4px;
+}
+
+#buttons a {
+    text-decoration: none;
+}
+
+#options {
+    max-width: 250px;
+    position: absolute;
+    top: 30px;
     right: 10px;
     z-index: 5;
     background-color: #fff;
-    padding: 5px;
     border: 1px solid #999;
-    line-height: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
+    line-height: 20px;
+    padding: 10px;
 }

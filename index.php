@@ -22,7 +22,13 @@
 </head>
 <body>
 
+<div id="buttons">
+	<a href="#" onclick="changeVisible()" id="visible-link">-</a>
+</div>
 <div id="options">
+	<h1>Heatmap KolemPlzne</h1>
+	<p>Přehled, kde parkují kola bikesharingu KolemPlzne.</p>
+	<p id="p-options"><strong>Styl mapy</strong>:</p>
 	<form>
 		<label><input type="radio" name="data" value="all" checked="checked"
 			   onclick="changeData('all')">Všechna parkování</label><br />
@@ -79,6 +85,20 @@
 			} else {
 				heatmap.setData(testDataUnique);
 			}
+		}
+
+		function changeVisible() {
+			var control = document.getElementById("visible-link");
+			var panel = document.getElementById("options");
+
+			if (control.innerHTML == "+") {
+				control.innerHTML = "-";
+				panel.style.display = "block";
+			} else {
+				control.innerHTML = "+";
+				panel.style.display = "none";
+			}
+
 		}
 
 
