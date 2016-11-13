@@ -126,24 +126,31 @@ class ParkingReader
 	 * @return array zredukovaný seznam parkování
 	 */
 	private function uniqueParking($items) {
+		$userMap = array();
 		$newItems = array();
 
 		foreach ($items as $item) {
-
 			$ignore = false;
-			foreach ($newItems as $newItem) {
-				if ($item->user_id == $newItem->user_id) {
-					$distance = $this->distance($item->rent_end_lat, $newItem->rent_end_lon,
-							$item->rent_end_lat, $item->rent_end_lon)*1000;
-					if ($distance <= self::IGNORE_PARKING_M) {
-						$ignore = true;
-					}
 
+			if (isset($userMap[$item->user_id])) {
+
+				foreach ($userMap[$item->user_id] as $newItem) {
+					if ($item->user_id == $newItem->user_id) {
+						$distance = $this->distance($item->rent_end_lat, $newItem->rent_end_lon,
+								$item->rent_end_lat, $item->rent_end_lon) * 1000;
+						if ($distance <= self::IGNORE_PARKING_M) {
+							$ignore = true;
+						}
+
+					}
 				}
+			} else {
+				$userMap[$item->user_id] = array();
 			}
 
 			if (!$ignore) {
 				$newItems[] = $item;
+				$userMap[$item->user_id][] = $item;
 			}
 
 		}
