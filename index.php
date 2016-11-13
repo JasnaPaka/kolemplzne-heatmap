@@ -28,7 +28,7 @@
 <div id="options">
 	<h1>Heatmap KolemPlzne</h1>
 	<p>Přehled, kde parkují kola bikesharingu KolemPlzne.</p>
-	<p id="p-options"><strong>Styl mapy</strong>:</p>
+	<p id="p-options"><strong>Data mapy</strong>:</p>
 	<form>
 		<label><input type="radio" name="data" value="all" checked="checked"
 			   onclick="changeData('all')">Všechna parkování</label><br />
