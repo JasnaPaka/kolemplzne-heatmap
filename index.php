@@ -23,7 +23,7 @@
 <body>
 
 <div id="buttons">
-	<a href="#" onclick="changeVisible()" id="visible-link">-</a>
+    <a href="#" onclick="changeVisible()" id="visible-link" ><strong>&minus;</strong></a>
 </div>
 <div id="options">
 	<h1>Heatmap parkování kol KolemPlzne</h1>
@@ -97,7 +97,7 @@
 			var panel = document.getElementById("options");
 
 			if (control.innerHTML == "+") {
-				control.innerHTML = "-";
+				control.innerHTML = "&minus;";
 				panel.style.display = "block";
 			} else {
 				control.innerHTML = "+";

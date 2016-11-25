@@ -39,6 +39,7 @@ p {
     z-index: 5;
     position: absolute;
     background-color: silver;
+    border: 1px;
     width: 24px;
     color: white;
     padding-top: 4px;
