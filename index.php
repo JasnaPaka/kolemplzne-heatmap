@@ -26,8 +26,9 @@
 	<a href="#" onclick="changeVisible()" id="visible-link">-</a>
 </div>
 <div id="options">
-	<h1>Heatmap KolemPlzne</h1>
-	<p>Přehled, kde parkují kola bikesharingu KolemPlzne.</p>
+	<h1>Heatmap parkování kol KolemPlzne</h1>
+	<p>Přehled, kde parkovala kola bikesharingu <a href="https://www.kolemplzne.cz/">KolemPlzne</a>
+        v letech 2015 a 2016.</p>
 	<p id="p-options"><strong>Data mapy</strong>:</p>
 	<form>
 		<label><input type="radio" name="data" value="all" checked="checked"
@@ -36,6 +37,10 @@
 			   onclick="changeData('unique')">Pouze unikátní</label>
 		(<abbr title="Zredukováno o opakované parkování uživatelů v jednom místě.">info</abbr>)<br />
 	</form>
+
+    <p id="credits">Vytvořil <a href="http://jasnapaka.com/">Pavel Cvrček</a> na základě dat z bikesharingu
+        KolemPlzne.
+    </p>
 </div>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=<?php print GM_API_KEY ?>"

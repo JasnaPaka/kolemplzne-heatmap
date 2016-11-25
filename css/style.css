@@ -59,3 +59,9 @@ p {
     line-height: 20px;
     padding: 10px;
 }
+
+#credits {
+    font-size: 12px;
+    margin-bottom: 0px;
+    line-height: 17px;
+}
