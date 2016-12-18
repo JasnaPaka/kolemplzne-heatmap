@@ -14,6 +14,7 @@ class ParkingReader
 
 	private $jsonUrl;
 	private $jsonObjCache;
+	private $dataYearsCache;
 
 	/**
 	 * ParkingReader constructor.
@@ -74,6 +75,106 @@ class ParkingReader
 		}
 
 		return $obj->items;
+	}
+
+	/**
+	 * Získání roků, pro které je možné získat statistiky (jsou obsaženy ve vstupním JSONu).
+	 *
+	 * @return array|bool Vrací false, pokud se nepodařilo roky získat nebo pole s roky,
+	 * pro jaké jsou statistiky k dispozici.
+	 */
+	public function getDataYears() {
+		if ($this->dataYearsCache != null) {
+			return $this->dataYearsCache;
+		}
+
+		$years = array();
+
+		$obj = $this->getJsonData();
+		if (!$obj) {
+			return false;
+		}
+
+		$items = $obj->items;
+		foreach ($items as $item) {
+			if ($item->rent_end_datetime == null) {
+				continue;
+			}
+
+			$date = strtotime($item->rent_end_datetime);
+			$currentYear = (int) date ('Y', $date);
+
+			$found = false;
+			foreach ($years as $year) {
+				if ($year === $currentYear) {
+					$found = true;
+				}
+			}
+
+			if (!$found) {
+				$years[] = $currentYear;
+			}
+		}
+
+		rsort($years);
+		$this->dataYearsCache = $years;
+
+		return $years;
+	}
+
+	/**
+	 * Vrátí rok, pro který se budou dle URL zobrazovat statistiky. Pokud není rok
+	 * specifikován, bude se používat aktuální rok.
+	 *
+	 * @return int
+	 */
+	public function getCurrentYear() {
+		if (isset($_GET["year"])) {
+			$year = (int) $_GET["year"];
+			if ($year > 0) {
+				return $year;
+			}
+		}
+
+		$years = $this->getDataYears();
+		return $years[0];
+	}
+
+	/**
+	 * Vrátí data pro zvolený rok.
+	 *
+	 * @param $year zvolený rok
+	 * @return array pole s daty
+	 */
+	public function getDataYear($year) {
+		$data = array();
+
+		$obj = $this->getJsonData();
+		if (!$obj) {
+			return $data;
+		}
+
+		$items = $obj->items;
+		foreach ($items as $item) {
+			$lat = $item->rent_end_lat;
+			$lng = $item->rent_end_lon;
+
+			if (strlen($lat) == 0 || strlen ($lng) == 0) {
+				continue;
+			}
+
+			if ($item->rent_end_datetime == null) {
+				continue;
+			}
+
+			$date = strtotime($item->rent_end_datetime);
+			$itemYear = date ('Y', $date);
+			if ($itemYear == $year) {
+				$data[] = $item;
+			}
+		}
+
+		return $data;
 	}
 
 	/**

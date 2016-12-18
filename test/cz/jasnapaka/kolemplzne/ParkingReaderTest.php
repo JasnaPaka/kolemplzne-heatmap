@@ -12,11 +12,13 @@ class ParkingReaderTest extends PHPUnit_Framework_TestCase
 		$this->assertFalse($reader->getHeatmapData());
 		$this->assertFalse($reader->getCount());
 		$this->assertFalse($reader->getData());
+		$this->assertFalse($reader->getDataYears());
 	}
 
 	public function testSimple() {
 		$reader = new ParkingReader(TEST_DATA_DIR."simple.json");
 		$this->assertEquals(1, $reader->getCount());
 		$this->assertEquals(1, sizeof($reader->getData()));
+		$this->assertEquals(1, sizeof($reader->getDataYears()));
 	}
 }

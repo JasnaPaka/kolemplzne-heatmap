@@ -66,3 +66,35 @@ p {
     margin-bottom: 0px;
     line-height: 17px;
 }
+
+/* Statistika */
+#stats-content {
+    max-width: 1024px;
+    margin: 15px auto 0 auto;
+}
+
+#stats-content h1 {
+    font-size: 25px;
+    color: dodgerblue;
+}
+
+#stats-content h2 {
+    margin-top: 25px;
+}
+
+th {
+    width: 200px;
+    text-align: left;
+}
+
+td {
+    text-align: right;
+}
+
+.note {
+    color: #909090;
+}
+
+#years {
+    margin-bottom: 15px;
+}
