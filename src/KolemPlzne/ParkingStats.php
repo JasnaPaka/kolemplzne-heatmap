@@ -91,6 +91,32 @@ class ParkingStats
 	}
 
 	/**
+	 * Získá statistiku parkování dle částí obvodů.
+	 *
+	 * @return array Pole s četností parkování v jednotlivých obvodech.
+	 */
+	public function getStatsByUMOPart() {
+		$part = array();
+
+		// Nejprve sestavíme data pro POST
+		foreach ($this->data as $item) {
+			if ($item->part == "") {
+				continue;
+			}
+
+			if (isset($part[$item->part])) {
+				$part[$item->part]++;
+			} else {
+				$part[$item->part] = 1;
+			}
+		}
+
+		ksort($part);
+
+		return $part;
+	}
+
+	/**
 	 * Získá statistiku parkování kol dle měsíce.
 	 *
 	 * @return array Vrací pole, kde klíčem je číslo měsíce (číslováno od jedničky)

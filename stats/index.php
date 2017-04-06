@@ -85,11 +85,21 @@ if (sizeof($years) == 0) {
     } else {
 		print '<table>';
 		foreach ($umo as $key => $value) {
-			printf ("<tr><th>%s</th><td class='r'>%d</td></tr>", getUMOName($key), $value);
+			printf ("<tr><th>%s</th><td class='r'>%d</td></tr>", $key, $value);
 		}
 		print '</table>';
 		print '<p class="note"><strong>Poznámka</strong>: Parkování mimo území Plzně není v tabulce zahrnuto.</p>';
     }
+
+	// Přehled parkování dle částí městských obvodů
+	print '<h2>Parkování dle částí městských obvodů</h2>';
+	$umo = $stats->getStatsByUMOPart();
+    print '<table>';
+    foreach ($umo as $key => $value) {
+        printf ("<tr><th>%s</th><td class='r'>%d</td></tr>", $key, $value);
+    }
+    print '</table>';
+    print '<p class="note"><strong>Poznámka</strong>: Parkování mimo území Plzně není v tabulce zahrnuto.</p>';
 
     // Přehled parkování dle měsíce
 	print '<h2>Počet výpůjček dle měsíce</h2>';
