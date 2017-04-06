@@ -1,12 +1,14 @@
 <?php
-    use cz\jasnapaka\kolemplzne\ParkingReader;
-    use cz\jasnapaka\kolemplzne\ParkingStats;
+    use KolemPlzne\ParkingReader;
+    use KolemPlzne\ParkingStats;
+    use KolemPlzne\ParkingDb;
 
-    include_once "../config.php";
-    include_once ROOT."/src/cz/jasnapaka/kolemplzne/ParkingReader.php";
-    include_once ROOT."/src/cz/jasnapaka/kolemplzne/ParkingStats.php";
+    include_once "./../config.php";
+    include_once ROOT . "/src/KolemPlzne/ParkingReader.php";
+    include_once ROOT . "/src/KolemPlzne/ParkingStats.php";
+    include_once ROOT . "/src/KolemPlzne/ParkingDb.php";
 
-    $reader = new ParkingReader(DATA);
+    $reader = new ParkingReader(new ParkingDb());
 
     /** Vrácení českého názvu měsíce
      * @param int 1-12
@@ -62,7 +64,7 @@ if (sizeof($years) == 0) {
 			print " | ";
 		}
 
-		if ($year === $reader->getCurrentYear()) {
+		if ($year == $reader->getCurrentYear()) {
             print $year;
         } else {
 			printf('<a href="./?year=%d">%d</a>', $year, $year);

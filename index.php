@@ -1,12 +1,15 @@
 <?php
-	use cz\jasnapaka\kolemplzne\ParkingReader;
+	use KolemPlzne\ParkingReader;
+	use KolemPlzne\ParkingDb;
 
 	include_once "config.php";
-	include_once ROOT."/src/cz/jasnapaka/kolemplzne/ParkingReader.php";
+	include_once ROOT . "/src/KolemPlzne/ParkingReader.php";
+    include_once ROOT . "/src/KolemPlzne/ParkingDb.php";
 
-	$reader = new ParkingReader(DATA);
+	$reader = new ParkingReader(new ParkingDb());
 	$data = $reader->getHeatmapData();
 	$dataUnique = $reader->getHeatmapData(true);
+	$years = $reader->getDataYears();
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +31,7 @@
 <div id="options">
 	<h1>Heatmap parkování kol KolemPlzne</h1>
 	<p>Přehled, kde parkovala kola bikesharingu <a href="https://www.kolemplzne.cz/">KolemPlzne</a>
-        v letech 2015 a 2016.</p>
+        v letech <?php print $years[sizeof($years)-1] ?> až <?php print $years[0] ?>. Aktualizováno denně.</p>
 	<p id="p-options"><strong>Data mapy</strong>:</p>
 	<form>
 		<label><input type="radio" name="data" value="all" checked="checked"

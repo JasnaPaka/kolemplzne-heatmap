@@ -1,6 +1,6 @@
 <?php
 
-namespace cz\jasnapaka\kolemplzne;
+namespace KolemPlzne;
 
 /**
  * Třída ParkingStats získává z dat bikesharingu KolemPlzne některé statistické údaje.
@@ -8,7 +8,7 @@ namespace cz\jasnapaka\kolemplzne;
  * Data jsou zpracovávána pro konkrétní rok. U vstupních dat v konstruktoru se
  * předpokládá, že jsou pro konkrétní rok (neprovádí se další kontrola).
  *
- * @package cz\jasnapaka\kolemplzne
+ * @package KolemPlzne
  * @author Pavel Cvrček
  */
 class ParkingStats

@@ -1,56 +1,25 @@
 <?php
 
-namespace cz\jasnapaka\kolemplzne;
+namespace KolemPlzne;
 
 /**
  * Třída ParkingReader čte informace o parkování kol ze vstupního JSONu.
  *
- * @package cz\jasnapaka\kolemplzne
+ * @package KolemPlzne
  * @author Pavel Cvrček
  */
 class ParkingReader
 {
 	const IGNORE_PARKING_M = 20;
 
-	private $jsonUrl;
-	private $jsonObjCache;
-	private $dataYearsCache;
+	private $db;
 
 	/**
 	 * ParkingReader constructor.
-	 * @param $jsonUrl cesta ke vstupnímu JSONu.
+	 * @param $db Interface pro přístup do databáze.
 	 */
-	public function __construct($jsonUrl) {
-		$this->jsonUrl = $jsonUrl;
-	}
-
-	/**
-	 * Načte vstupní JSON nebo použije již nakešované načtení.
-	 *
-	 * @return bool|mixed Načtený JSON nebo false, pokud se jej
-	 * nepodařilo načíst.
-	 */
-	private function getJsonData() {
-		if ($this->jsonObjCache != null) {
-			return $this->jsonObjCache;
-		}
-
-		if (!file_exists($this->jsonUrl)) {
-			return false;
-		}
-
-		$result = file_get_contents($this->jsonUrl);
-		if (!$result) {
-			return false;
-		}
-
-		$obj = json_decode($result);
-		if (!$obj) {
-			return false;
-		}
-		$this->jsonObjCache = $obj;
-
-		return $obj;
+	public function __construct(ParkingDbInterface $db) {
+		$this->db = $db;
 	}
 
 	/**
@@ -60,21 +29,11 @@ class ParkingReader
 	 * pokud se načtení nezdařilo.
 	 */
 	public function getCount() {
-		$obj = $this->getJsonData();
-		if (!$obj) {
-			return false;
-		}
-
-		return $obj->total_count;
+		return $this->db->getCount();
 	}
 
 	public function getData() {
-		$obj = $this->getJsonData();
-		if (!$obj) {
-			return false;
-		}
-
-		return $obj->items;
+		return $this->db->getDataAll();
 	}
 
 	/**
@@ -84,42 +43,7 @@ class ParkingReader
 	 * pro jaké jsou statistiky k dispozici.
 	 */
 	public function getDataYears() {
-		if ($this->dataYearsCache != null) {
-			return $this->dataYearsCache;
-		}
-
-		$years = array();
-
-		$obj = $this->getJsonData();
-		if (!$obj) {
-			return false;
-		}
-
-		$items = $obj->items;
-		foreach ($items as $item) {
-			if ($item->rent_end_datetime == null) {
-				continue;
-			}
-
-			$date = strtotime($item->rent_end_datetime);
-			$currentYear = (int) date ('Y', $date);
-
-			$found = false;
-			foreach ($years as $year) {
-				if ($year === $currentYear) {
-					$found = true;
-				}
-			}
-
-			if (!$found) {
-				$years[] = $currentYear;
-			}
-		}
-
-		rsort($years);
-		$this->dataYearsCache = $years;
-
-		return $years;
+		return $this->db->getYears();
 	}
 
 	/**
@@ -147,34 +71,7 @@ class ParkingReader
 	 * @return array pole s daty
 	 */
 	public function getDataYear($year) {
-		$data = array();
-
-		$obj = $this->getJsonData();
-		if (!$obj) {
-			return $data;
-		}
-
-		$items = $obj->items;
-		foreach ($items as $item) {
-			$lat = $item->rent_end_lat;
-			$lng = $item->rent_end_lon;
-
-			if (strlen($lat) == 0 || strlen ($lng) == 0) {
-				continue;
-			}
-
-			if ($item->rent_end_datetime == null) {
-				continue;
-			}
-
-			$date = strtotime($item->rent_end_datetime);
-			$itemYear = date ('Y', $date);
-			if ($itemYear == $year) {
-				$data[] = $item;
-			}
-		}
-
-		return $data;
+		return $this->db->getDataYear($year);
 	}
 
 	/**
@@ -188,12 +85,7 @@ class ParkingReader
 	 */
 	public function getHeatmapData($justUnique = false) {
 
-		$obj = $this->getJsonData();
-		if (!$obj) {
-			return false;
-		}
-
-		$items = $obj->items;
+		$items = $this->db->getDataAll();
 		if ($justUnique) {
 			$items = $this->uniqueParking($items);
 		}

@@ -15,3 +15,9 @@ define ('UMO_SERVICE', "http://tools.jasnapaka.com/mestske-obvody-plzen/service.
 
 // Zda se jedná o produkční prostředí (true) nebo ne (false)
 define ('PRODUCTION', true);
+
+// Přístupové údaje k MySQL
+define ('MYSQL_SERVER', '');
+define ('MYSQL_DB', '');
+define ('MYSQL_USER', '');
+define ('MYSQL_PASS', '');
