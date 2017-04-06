@@ -13,9 +13,6 @@ define ('GM_API_KEY', "");
 // Služba pro detekci městské části na základě GPS souřadnice
 define ('UMO_SERVICE', "http://tools.jasnapaka.com/mestske-obvody-plzen/service.php");
 
-// Zda se jedná o produkční prostředí (true) nebo ne (false)
-define ('PRODUCTION', true);
-
 // Přístupové údaje k MySQL
 define ('MYSQL_SERVER', '');
 define ('MYSQL_DB', '');
