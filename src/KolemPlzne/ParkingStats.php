@@ -111,7 +111,7 @@ class ParkingStats
 			}
 		}
 
-		ksort($part);
+		ksort($part );
 
 		return $part;
 	}

@@ -47,7 +47,7 @@
 
 <div id="stats-content">
 
-<h1>Statistika KolemPlzne.cz</h1>
+<h1>Statistika KolemPlzne.cz (<a href="./../">zpět na mapu</a>)</h1>
 
 <?php
 
@@ -77,30 +77,6 @@ if (sizeof($years) == 0) {
 	$stats = new ParkingStats($reader->getDataYear($reader->getCurrentYear()), $reader->getCurrentYear());
     printf ('<p><strong>Celkem jízd v roce %d</strong>: %d</p>', $reader->getCurrentYear(), $stats->getCount());
 
-    // Přehled parkování dle městských obvodů
-    print '<h2>Parkování dle městských obvodů</h2>';
-    $umo = $stats->getStatsByUMO();
-    if (!$umo) {
-        print ("<p>Informace o parkování v městských obvodech není k dispozici.</p>");
-    } else {
-		print '<table>';
-		foreach ($umo as $key => $value) {
-			printf ("<tr><th>%s</th><td class='r'>%d</td></tr>", $key, $value);
-		}
-		print '</table>';
-		print '<p class="note"><strong>Poznámka</strong>: Parkování mimo území Plzně není v tabulce zahrnuto.</p>';
-    }
-
-	// Přehled parkování dle částí městských obvodů
-	print '<h2>Parkování dle částí městských obvodů</h2>';
-	$umo = $stats->getStatsByUMOPart();
-    print '<table>';
-    foreach ($umo as $key => $value) {
-        printf ("<tr><th>%s</th><td class='r'>%d</td></tr>", $key, $value);
-    }
-    print '</table>';
-    print '<p class="note"><strong>Poznámka</strong>: Parkování mimo území Plzně není v tabulce zahrnuto.</p>';
-
     // Přehled parkování dle měsíce
 	print '<h2>Počet výpůjček dle měsíce</h2>';
 	print '<table>';
@@ -120,17 +96,47 @@ if (sizeof($years) == 0) {
 	// Půjčování dle délky
 	print '<h2>Výpůjčky dle délky</h2>';
 	$statsLength = $stats->getStatsByLength();
+
+	?>
+
+    <table>
+        <tr><th>do 30 minut</th><td><?php print $statsLength[0] ?></td>
+        <tr><th>30 minut až 1 hodina</th><td><?php print $statsLength[1] ?></td>
+        <tr><th>1 hodina až 2 hodiny</th><td><?php print $statsLength[2] ?></td>
+        <tr><th>2 hodiny až 4 hodiny</th><td><?php print $statsLength[3] ?></td>
+        <tr><th>4 hodiny až 6 hodin</th><td><?php print $statsLength[4] ?></td>
+        <tr><th>více než 6 hodin</th><td><?php print $statsLength[5] ?></td>
+    </table>
+
+    <?php
+
+	// Přehled parkování dle městských obvodů
+	print '<h2>Parkování dle městských obvodů</h2>';
+	$umo = $stats->getStatsByUMO();
+	if (!$umo) {
+		print ("<p>Informace o parkování v městských obvodech není k dispozici.</p>");
+	} else {
+		print '<table>';
+		foreach ($umo as $key => $value) {
+			printf ("<tr><th>%s</th><td class='r'>%d</td></tr>", $key, $value);
+		}
+		print '</table>';
+		print '<p class="note"><strong>Poznámka</strong>: Parkování mimo území Plzně není v tabulce zahrnuto.</p>';
+	}
+
+	// Přehled parkování dle částí městských obvodů
+	print '<h2>Parkování dle částí městských obvodů</h2>';
+	$umo = $stats->getStatsByUMOPart();
+	print '<table>';
+	foreach ($umo as $key => $value) {
+		printf ("<tr><th>%s</th><td class='r'>%d</td></tr>", $key, $value);
+	}
+	print '</table>';
+	print '<p class="note"><strong>Poznámka</strong>: Parkování mimo území Plzně není v tabulce zahrnuto.</p>';
+
 }
 ?>
 
-<table>
-    <tr><th>do 30 minut</th><td><?php print $statsLength[0] ?></td>
-    <tr><th>30 minut až 1 hodina</th><td><?php print $statsLength[1] ?></td>
-    <tr><th>1 hodina až 2 hodiny</th><td><?php print $statsLength[2] ?></td>
-    <tr><th>2 hodiny až 4 hodiny</th><td><?php print $statsLength[3] ?></td>
-    <tr><th>4 hodiny až 6 hodin</th><td><?php print $statsLength[4] ?></td>
-    <tr><th>více než 6 hodin</th><td><?php print $statsLength[5] ?></td>
-</table>
 
 </div>
 

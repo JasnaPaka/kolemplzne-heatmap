@@ -18,6 +18,7 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Vizualizace míst, kde nejčastěji parkují kola bikesharingu KolemPlzne.cz">
 
 	<title>Heatmap KolemPlzne - kde parkují kola</title>
 
@@ -42,7 +43,7 @@
 	</form>
 
     <p id="credits">Vytvořil <a href="http://jasnapaka.com/">Pavel Cvrček</a> na základě dat z bikesharingu
-        KolemPlzne.
+        KolemPlzne. Data jsou aktualizována denně.
     </p>
 </div>
 
