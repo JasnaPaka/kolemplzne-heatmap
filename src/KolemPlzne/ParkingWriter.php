@@ -28,13 +28,22 @@ class ParkingWriter {
 	 */
 	private function getJsonData() {
 
-		$result = file_get_contents(DATA);
+		// stahujeme pouze data 6 měsíců nazpět
+		$dt = new \DateTime();
+		$dt->modify('-6 month');
+
+		$url = DATA;
+		$url = str_replace("%s", $dt->format('Y-m-d'), $url);
+
+		$result = file_get_contents($url);
 		if (!$result) {
+			print "Nepodarilo se stahnout JSON.\n";
 			return false;
 		}
 
 		$obj = json_decode($result);
 		if (!$obj) {
+			print "Nepodarilo se dekodovat stazeny JSON.\n";
 			return false;
 		}
 
