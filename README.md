@@ -4,7 +4,7 @@
 Stránka s heatmapou zobrazující parkování kol bikesharingu [KolemPlzne](https://www.kolemplzne.cz/).
 
 # Požadavky
-* Webový server s PHP 5.3 či vyšší.
+* Webový server s PHP 5.6 či vyšší.
 * Databázový server MySQL (testována verze 5.6.x).
 * Přístup k API KolemPlzne.cz.
 
