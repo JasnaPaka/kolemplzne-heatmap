@@ -6,10 +6,6 @@ body, html {
     font-size: 13px;
 }
 
-abbr {
-    border-bottom: 1px dotted;
-}
-
 #map {
     height: 100%;
     z-index: 1;
