@@ -42,8 +42,11 @@
 		(<abbr title="Zredukováno o opakované parkování uživatelů v jednom místě.">info</abbr>)<br />
 	</form>
 
+    <p id="p-options2"><strong>Doplňující informace</strong>:</p>
+    <div><input type="checkbox" id="bicycle-parking" onclick="showHideBicycleParking()" /><label for="bicycle-parking">Veřejné cyklostojany</label></div>
+
     <p id="credits">Vytvořil <a href="http://jasnapaka.com/">Pavel Cvrček</a> na základě dat z bikesharingu
-        KolemPlzne. Data jsou aktualizována denně.
+        KolemPlzne.
     </p>
 </div>
 
@@ -65,8 +68,10 @@
 			data: [<?php print $dataUnique ?>]
 		};
 
+        var map;
+        var kmlLayer
+
 		window.onload = function(){
-			var map;
 
 			map = new google.maps.Map(document.getElementById('map'), {
 				center: {lat: 49.74403, lng: 13.36958},
@@ -86,7 +91,11 @@
 				heatmap.setData(testData);
 			});
 
-		}
+            kmlLayer = new google.maps.KmlLayer({
+                url: 'http://tools.jasnapaka.com/kolemplzne-heatmap/data/cyklostojany.kml'
+            });
+
+        }
 
 		function changeData(value) {
 			if (value == "all") {
@@ -107,8 +116,18 @@
 				control.innerHTML = "+";
 				panel.style.display = "none";
 			}
-
 		}
+
+		function showHideBicycleParking() {
+		    var element = document.getElementById("bicycle-parking");
+		    if (element.checked) {
+		        // zobrazíme
+                kmlLayer.setMap(map);
+            } else {
+		        // skryjeme
+                kmlLayer.setMap(null);
+            }
+        }
 
 
 	</script>
