@@ -6,9 +6,14 @@
 	include_once ROOT . "/src/KolemPlzne/ParkingReader.php";
     include_once ROOT . "/src/KolemPlzne/ParkingDb.php";
 
+    $currentYear = null;
+    if (isset($_GET["year"])) {
+        $currentYear = (int) $_GET["year"];
+    }
+
 	$reader = new ParkingReader(new ParkingDb());
-	$data = $reader->getHeatmapData();
-	$dataUnique = $reader->getHeatmapData(true);
+	$data = $reader->getHeatmapData($currentYear);
+	$dataUnique = $reader->getHeatmapData($currentYear, true);
 	$years = $reader->getDataYears();
 ?>
 
@@ -33,7 +38,30 @@
 	<h1>Heatmap parkování kol KolemPlzne</h1>
 	<p>Přehled, kde parkovala kola bikesharingu <a href="https://www.kolemplzne.cz/">KolemPlzne</a>
         v letech <?php print $years[sizeof($years)-1] ?> až <?php print $years[0] ?>. Aktualizováno denně.</p>
-	<p id="p-options"><strong>Data mapy</strong>:</p>
+
+    <p id="p-years"><strong>Sezóny</strong>:</p>
+
+    <?php
+        if ($currentYear == null) {
+            print "vše";
+        } else {
+            print '<a href="./">vše</a>';
+        }
+
+        foreach ($reader->getDataYears() as $year) {
+            print ' · ';
+            if ($currentYear != null && $currentYear == $year) {
+                print $year;
+            } else {
+                printf ('<a href="./?year=%d">%d</a>', $year, $year);
+            }
+        }
+
+    ?>
+
+
+
+    <p id="p-options"><strong>Data mapy</strong>:</p>
 	<form>
 		<label><input type="radio" name="data" value="all" checked="checked"
 			   onclick="changeData('all')">Všechna parkování</label><br />

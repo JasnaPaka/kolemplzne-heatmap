@@ -77,15 +77,22 @@ class ParkingReader
 	/**
 	 * Vrací data pro zobrazení základní heatmapy.
 	 *
+     * @param currentYear rok, pro který se získávají data nebo null,
+     * pokud na roku nezáleží
 	 * @param justUnique true, pokud se mají brát pouze unikátní parkování,
 	 * jinak false (výchozí). Vysvětlení v kódu níže.
 	 *
 	 * @return string|boolean Vrací data pro heatmapu či false,
 	 * pokud se je nepodaří načíst.
 	 */
-	public function getHeatmapData($justUnique = false) {
+	public function getHeatmapData($currentYear, $justUnique = false) {
 
-		$items = $this->db->getDataAll();
+	    if ($currentYear != null) {
+	        $items = $this->db->getDataYear($currentYear);
+        } else {
+            $items = $this->db->getDataAll();
+        }
+
 		if ($justUnique) {
 			$items = $this->uniqueParking($items);
 		}
