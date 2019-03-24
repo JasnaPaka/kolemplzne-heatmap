@@ -160,7 +160,12 @@ class ParkingStats
 			}
 
 			$date = strtotime($item->rent_start_datetime);
-			$itemWeek = ((int) date ('w', $date)) + 1;
+			$itemWeek = ((int) date ('w', $date));
+
+			// nyní je v $itemWeek (0 = neděle, 6 = sobota), potřebujeme korekci na (1 = pondělí, 7 = neděle)
+            if ($itemWeek == 0) {
+                $itemWeek = 7;
+            }
 
 			if (isset($arr[$itemWeek])) {
 				$arr[$itemWeek]++;
