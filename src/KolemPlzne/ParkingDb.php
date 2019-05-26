@@ -44,6 +44,9 @@ class ParkingDb implements ParkingDbInterface
 				user_username, rent_start_lat, bike_code, user_id, rent_start_datetime, rent_id, user_last_name, 
 				bike_id, rent_end_lat, rent_start_lon, area, part) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
+        $data->rent_start_datetime = str_replace("CET", "", $data->rent_start_datetime);
+        $data->rent_end_datetime = str_replace("CET", "", $data->rent_end_datetime);
+
 		return $query->execute(array($data->rent_end_datetime, $data->bike_label, $data->user_first_name, $data->rent_end_lon,
 			$data->user_username, $data->rent_start_lat, $data->bike_code, $data->user_id, $data->rent_start_datetime,
 			$data->rent_id, $data->user_last_name, $data->bike_id, $data->rent_end_lat, $data->rent_start_lon, $data->area, $data->part));
