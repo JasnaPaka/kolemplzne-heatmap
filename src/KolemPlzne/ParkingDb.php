@@ -47,9 +47,11 @@ class ParkingDb implements ParkingDbInterface
         $data->rent_start_datetime = str_replace("CET", "", $data->rent_start_datetime);
         $data->rent_end_datetime = str_replace("CET", "", $data->rent_end_datetime);
 
-		return $query->execute(array($data->rent_end_datetime, $data->bike_label, $data->user_first_name, $data->rent_end_lon,
-			$data->user_username, $data->rent_start_lat, $data->bike_code, $data->user_id, $data->rent_start_datetime,
-			$data->rent_id, $data->user_last_name, $data->bike_id, $data->rent_end_lat, $data->rent_start_lon, $data->area, $data->part));
+		return $query->execute(array($data->rent_end_datetime, $data->bike_label,
+            isset($data->user_first_name) ? $data->user_first_name : "", $data->rent_end_lon,
+			isset($data->user_username) ? $data->user_username : "", $data->rent_start_lat, isset($data->bike_code) ? $data->bike_code : "", $data->user_id, $data->rent_start_datetime,
+			$data->rent_id, isset($data->user_last_name) ? $data->user_last_name : "", $data->bike_id,
+            $data->rent_end_lat, $data->rent_start_lon, $data->area, $data->part));
 	}
 
 	public function getCount()
