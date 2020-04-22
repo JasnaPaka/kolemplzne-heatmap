@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 	use KolemPlzne\ParkingReader;
 	use KolemPlzne\ParkingDb;
@@ -17,7 +18,6 @@
 	$years = $reader->getDataYears();
 ?>
 
-<!DOCTYPE html>
 <html lang="cs">
 <head>
 	<meta charset="utf-8" />
