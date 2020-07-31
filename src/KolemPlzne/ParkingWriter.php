@@ -84,7 +84,7 @@ class ParkingWriter {
 			// doplnime informace o mestske casti
 			$item = $this->addUMO($item);
 
-			$this->db->writeData($item);
+			$output = $this->db->writeData($item);
 
 			$imported++;
 		}
